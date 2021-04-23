@@ -68,7 +68,7 @@ input {
 }
 
 .pre-container {
-  width: 750px;
+  width: 100%;
   margin: 15px auto 75px;
   overflow: auto;
   background: #f9f9f9;
@@ -89,4 +89,18 @@ h2 {
 
 .text-center {
   text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  margin: 20px;
+}
+
+.pre-container1 {
+  width: 100%;
+  background: #f9f9f9;
+  margin-top: 10%;
 }

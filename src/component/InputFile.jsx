@@ -10,13 +10,14 @@ export default class inputFile extends Component {
           files: [],
           base64URL: "",
           id: "1",
-          objects: [],
+          objects: undefined,
         }
       }
 
       imageAttached = async () => {
         try {
-            console.log(this.state.base64URL);
+            // console.log(this.state.base64URL);
+            // console.log(typeof(this.state.objects));
             const objects = await objectsInImage(this.state.id,this.state.base64URL);
             this.setState({objects});
             console.log(this.state.objects);
@@ -40,14 +41,28 @@ export default class inputFile extends Component {
                 <FileBase64
                     multiple={ true }
                     onDone={ this.getFiles.bind(this) } />
-                    Attach
+                    Attach Image
                 </label>
+                {this.state.base64URL !== "" && this.state.objects === undefined ? <p>Loading...</p> : null}
 
-                {this.state.base64URL !== "" ? 
-                <div className="pre-container">
-                    <p>{this.state.objects}</p>
-                </div>  : null  
+            <div className="center">
+                { this.state.files.map((file,i) => {
+                    return <img key={i} src={file.base64} />
+                }) }
+                <img src="" />
+            </div>
+
+            
+
+            {this.state.objects !== undefined && this.state.objects.data.object !== null ? 
+            <div className="pre-container1">
+                <ul>
+                {this.state.objects.data.object.map(object => 
+                        <li>Detected: {object.label} | Accuracy {object.accuracy}</li>)} </ul>
+            </div>  : null  
             }
+
+            {this.state.objects !== undefined && this.state.objects.data.object === null ? <div><p>No Objects Detected, Please try another image.</p></div>: null}
             </div>
         )
     }
